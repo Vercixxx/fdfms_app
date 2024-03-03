@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 
+// NavBar
+import '../pages/menu.dart';
+
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10.0),
-      color: Colors.amber[600],
-      width: 48.0,
-      height: 48.0,
+    return Scaffold(
+      drawer: NavBar(),
+      appBar: AppBar(
+        title: const Text('FDFMS'),
+        backgroundColor: const Color.fromARGB(255, 90, 124, 62),
+      ),
+      body: const Center(
+        child: Text('Main Page'),
+      ),
     );
   }
 }

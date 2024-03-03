@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+// Storage
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 // My pages
 import 'pages/login_page.dart';
-// import 'pages/main_page.dart';
-import 'components/alert.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
