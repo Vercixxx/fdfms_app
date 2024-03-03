@@ -1,11 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import '../pages/main_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future<String> login_func(String username, String password) async {
+Future<bool> login_func(String username, String password) async {
   final response = await http.post(
-    Uri.parse('http://10.0.2.2:8000/log-in/'),
+    Uri.parse('http://127.0.0.1:8000/api/v1/login/'),
+    // Uri.parse('http://10.0.2.2:8000/log-in/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -15,35 +15,43 @@ Future<String> login_func(String username, String password) async {
     }),
   );
 
-  // Print the response body
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  final responseBody = jsonDecode(response.body);
 
   if (response.statusCode == 200) {
-    final responseBody = jsonDecode(response.body);
     final jwt = responseBody['jwt'];
 
-    print('JWT: $jwt');
-    // TokenManager.saveTokens(jwt['access'], jwt['refresh']);
-    return jwt;
+    TokenManager.saveTokens(jwt['access'], jwt['refresh']);
+    return true;
   } else {
-    throw Exception('Error! Failed to login.');
+    String error = responseBody['error'];
+    print('Error: $error');
+    return false;
   }
 }
 
 class TokenManager {
-  static String? accessToken;
-  static String? refreshToken;
-
-  static void saveTokens(String accessToken, String refreshToken) {
-    TokenManager.accessToken = accessToken;
-    TokenManager.refreshToken = refreshToken;
+  static Future<void> saveTokens(
+      String accessToken, String refreshToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', accessToken);
+    await prefs.setString('refreshToken', refreshToken);
   }
 
-  static Map<String, String> getHeaders() {
-    return {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ${TokenManager.accessToken}',
-    };
+  static Future<String?> getAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken');
   }
+
+  static Future<String?> getRefreshToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('refreshToken');
+  }
+
+  // static Future<Map<String, String>> getHeaders() async {
+  //   final accessToken = await getAccessToken();
+  //   return {
+  //     'Content-Type': 'application/json; charset=UTF-8',
+  //     'Authorization': 'Bearer $accessToken',
+  //   };
+  // }
 }

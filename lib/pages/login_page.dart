@@ -6,6 +6,8 @@ import 'package:fdfms_app/components/login_button.dart';
 
 import 'package:fdfms_app/scripts/login.dart';
 
+import 'main_page.dart';
+
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
@@ -86,11 +88,18 @@ class LoginPage extends StatelessWidget {
 
               // Button login
               LoginButton(
-                onTap: () {
-                  login_func(
+                onTap: () async {
+                  bool loginSuccessfull = await login_func(
                     usernameController.text,
                     passwordController.text,
                   );
+
+                  if (loginSuccessfull) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainPage()),
+                    );
+                  }
                 },
               ),
               // Button login

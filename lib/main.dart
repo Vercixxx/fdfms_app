@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // My pages
 import 'pages/login_page.dart';
-import 'pages/main_page.dart';
+// import 'pages/main_page.dart';
+import 'components/alert.dart';
 
 void main() {
   runApp(const MyApp());
