@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.0.8
   get: ^4.6.5
   get_storage: ^2.1.1
+  google_nav_bar: ^5.0.6
   material_design_icons_flutter: 7.0.7296
   flutter_localizations:
     sdk: flutter

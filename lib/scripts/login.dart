@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 Future<bool> login_func(String username, String password) async {
   final response = await http.post(
@@ -15,10 +16,14 @@ Future<bool> login_func(String username, String password) async {
     }),
   );
 
+  final storage = GetStorage();
+
   final responseBody = jsonDecode(response.body);
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 && responseBody['user_role'] == 'Driver') {
     final jwt = responseBody['jwt'];
+
+    storage.write('user_data', responseBody['data']);
 
     TokenManager.saveTokens(jwt['access'], jwt['refresh']);
     return true;
