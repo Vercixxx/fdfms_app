@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<bool> login_func(String username, String password) async {
+Future<dynamic> login_func(String username, String password) async {
   final response = await http.post(
     Uri.parse('http://127.0.0.1:8000/api/v1/login/'),
-    // Uri.parse('http://10.0.2.2:8000/log-in/'),
+    // Uri.parse('http://10.0.2.2:8000/api/v1/login/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -20,17 +20,25 @@ Future<bool> login_func(String username, String password) async {
 
   final responseBody = jsonDecode(response.body);
 
+  // define response, so I can send it in return
+  var myResponse = {
+    'status': false,
+    'message': 'Error',
+  };
+
   if (response.statusCode == 200 && responseBody['user_role'] == 'Driver') {
     final jwt = responseBody['jwt'];
 
     storage.write('user_data', responseBody['data']);
 
     TokenManager.saveTokens(jwt['access'], jwt['refresh']);
-    return true;
+    myResponse['status'] = true;
+    return myResponse;
   } else {
     String error = responseBody['error'];
-    print('Error: $error');
-    return false;
+    myResponse['status'] = false;
+    myResponse['message'] = error;
+    return myResponse;
   }
 }
 

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 
+// Components
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+
 import 'package:fdfms_app/components/login_input.dart';
 import 'package:fdfms_app/components/login_button.dart';
 import 'package:fdfms_app/components/remember_me.dart';
@@ -137,12 +140,15 @@ class _LoginPageState extends State<LoginPage> {
               // Button login
               LoginButton(
                 onTap: () async {
-                  bool loginSuccessfull = await login_func(
+                  dynamic loginSuccessData = await login_func(
                     usernameController.text,
                     passwordController.text,
                   );
 
-                  if (loginSuccessfull) {
+                  bool loginSuccess = loginSuccessData['status'] ?? false;
+                  String loginMessage = loginSuccessData['message'] ?? '';
+
+                  if (loginSuccess) {
                     if (isRememberMeChecked) {
                       // Save the username and password and checkbox state
                       storage.write('isRememberMeChecked', true);
@@ -161,6 +167,20 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(builder: (context) => MainPage()),
                     );
+                  } else {
+                    AnimatedSnackBar(
+                      builder: ((context) {
+                        return MaterialAnimatedSnackBar(
+                          titleText: 'Error ',
+                          messageText: loginMessage,
+                          type: AnimatedSnackBarType.error,
+                          foregroundColor: Colors.amber,
+                          titleTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        );
+                      }),
+                    ).show(context);
                   }
                 },
               ),
