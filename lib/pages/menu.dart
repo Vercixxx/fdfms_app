@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
+// Alert
+import '../components/alert.dart';
+
 // My pages
 import '../pages/login_page.dart';
 
@@ -8,6 +11,29 @@ class NavBar extends StatelessWidget {
   NavBar({Key? key}) : super(key: key);
 
   final storage = GetStorage();
+
+  void showMyDialog(
+      BuildContext context,
+      String title,
+      String dialogContext,
+      String leftButton,
+      String rightButton,
+      VoidCallback? leftButtonFunction,
+      VoidCallback? rightButtonFunction) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MyDialog(
+          title: title,
+          context: dialogContext,
+          leftButton: leftButton,
+          rightButton: rightButton,
+          leftButtonFunction: leftButtonFunction!,
+          rightButtonFunction: rightButtonFunction!,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +69,34 @@ class NavBar extends StatelessWidget {
 
           // Logout
           ListTile(
-            title: const Text('Logout'),
-            leading: const Icon(Icons.logout),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-          ),
+              title: const Text('Logout'),
+              leading: const Icon(Icons.logout),
+              onTap: () {
+                showMyDialog(
+                  context,
+                  'Logout',
+                  'Are you sure?',
+                  'No',
+                  'Yes',
+                  () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  // Navigator.pop(context);
+                );
+              }),
+
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => LoginPage()),
+          // );
+
           // Logout
         ],
       ),
