@@ -91,12 +91,6 @@ class NavBar extends StatelessWidget {
                   // Navigator.pop(context);
                 );
               }),
-
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => LoginPage()),
-          // );
-
           // Logout
         ],
       ),

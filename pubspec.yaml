@@ -17,6 +17,7 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
   google_nav_bar: ^5.0.6
+  curved_labeled_navigation_bar: ^2.0.2
   material_design_icons_flutter: 7.0.7296
   flutter_localizations:
     sdk: flutter

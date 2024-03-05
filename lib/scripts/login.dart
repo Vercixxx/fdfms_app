@@ -20,18 +20,15 @@ Future<dynamic> login_func(String username, String password) async {
 
   final responseBody = jsonDecode(response.body);
 
-  // define response, so I can send it in return
   var myResponse = {
     'status': false,
     'message': 'Error',
   };
 
   if (response.statusCode == 200 && responseBody['user_role'] == 'Driver') {
-    final jwt = responseBody['jwt'];
-
     storage.write('user_data', responseBody['data']);
+    storage.write('jwt', jsonEncode(responseBody['jwt']));
 
-    TokenManager.saveTokens(jwt['access'], jwt['refresh']);
     myResponse['status'] = true;
     return myResponse;
   } else {
@@ -40,31 +37,4 @@ Future<dynamic> login_func(String username, String password) async {
     myResponse['message'] = error;
     return myResponse;
   }
-}
-
-class TokenManager {
-  static Future<void> saveTokens(
-      String accessToken, String refreshToken) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('accessToken', accessToken);
-    await prefs.setString('refreshToken', refreshToken);
-  }
-
-  static Future<String?> getAccessToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken');
-  }
-
-  static Future<String?> getRefreshToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('refreshToken');
-  }
-
-  // static Future<Map<String, String>> getHeaders() async {
-  //   final accessToken = await getAccessToken();
-  //   return {
-  //     'Content-Type': 'application/json; charset=UTF-8',
-  //     'Authorization': 'Bearer $accessToken',
-  //   };
-  // }
 }
