@@ -9,6 +9,10 @@ import '../components/bottom_menu.dart';
 // NavBar
 import '../pages/menu.dart';
 
+// Pages
+import '../pages/fdfms_home.dart';
+import '../pages/delivery_home.dart';
+
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
 
@@ -29,8 +33,8 @@ class _MainPageState extends State<MainPage> {
 
       // Bottom menu
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.deepPurple,
-          color: Colors.deepPurple.shade200,
+          backgroundColor: Colors.white,
+          color: Color.fromARGB(97, 3, 0, 7),
           animationDuration: const Duration(milliseconds: 200),
           height: 60,
           items: const [
@@ -69,13 +73,11 @@ class _MainPageState extends State<MainPage> {
       body: Container(
         color: Colors.deepPurple,
         child: Center(
-          child: Text(
-            _page.toString(),
-            style: const TextStyle(
-              fontSize: 50,
-              color: Colors.white,
-            ),
-          ),
+          child: (_page == 0)
+              ? FdfmsHome()
+              : (_page == 1)
+                  ? DeliveryHome()
+                  : Container(), // default case if _page is not 0 or 1
         ),
       ),
     );
