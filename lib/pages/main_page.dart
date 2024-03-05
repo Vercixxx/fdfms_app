@@ -55,6 +55,8 @@ class _MainPageState extends State<MainPage> {
       // Bottom menu
 
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple.shade200,
         title: const Text(
           'FDFMS',
           style: TextStyle(
@@ -62,7 +64,6 @@ class _MainPageState extends State<MainPage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.deepPurple.shade200,
       ),
 
       body: Container(

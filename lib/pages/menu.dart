@@ -49,6 +49,8 @@ class NavBar extends StatelessWidget {
           UserAccountsDrawerHeader(
               accountName: Text(first_name), accountEmail: Text(last_name)),
 
+          Container(),
+
           // Home
           ListTile(
             title: const Text('Home'),
