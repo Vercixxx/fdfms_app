@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
 
       // Bottom menu
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey.shade100,
           color: Color.fromARGB(97, 3, 0, 7),
           animationDuration: const Duration(milliseconds: 200),
           height: 60,
@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
             ),
             CurvedNavigationBarItem(
               child: Icon(
-                Icons.restaurant,
+                Icons.local_shipping,
                 color: Colors.white,
               ),
             ),
@@ -60,12 +60,13 @@ class _MainPageState extends State<MainPage> {
 
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade200,
-        title: const Text(
-          'FDFMS',
+        backgroundColor: Colors.grey.shade100,
+        title: Text(
+          _page == 0 ? 'Home' : 'Delivery',
           style: TextStyle(
             fontSize: 20,
-            color: Colors.white,
+            color: Color.fromARGB(255, 0, 0, 0),
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

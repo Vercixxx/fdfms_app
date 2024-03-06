@@ -6,8 +6,36 @@ class DeliveryHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text('Delivery Home'),
+      backgroundColor: Colors.grey.shade100,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Icon(
+                      Icons.delivery_dining,
+                      color: Colors.blue
+                          .withOpacity(0.2), // make it semi-transparent
+                      size: 100.0, // adjust size as needed
+                    ),
+                    const Text(
+                      'Your orders will appear here',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

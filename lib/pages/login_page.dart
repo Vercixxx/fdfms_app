@@ -185,6 +185,21 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               // Button login
+
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(children: [
+                    Text(
+                      'FDFMS, 2024 - Krzysztof Służałek',
+                      style: TextStyle(
+                        color: Color.fromARGB(204, 255, 255, 255),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ])
+                ],
+              )
             ],
           ),
         ),

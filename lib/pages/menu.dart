@@ -42,14 +42,28 @@ class NavBar extends StatelessWidget {
         userData != null ? userData['first_name'] : 'Default Name';
     String last_name =
         userData != null ? userData['last_name'] : 'Default Last name';
+    String email = userData != null ? userData['email'] : 'Default email';
 
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text(first_name), accountEmail: Text(last_name)),
-
-          Container(),
+            accountName: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(first_name),
+                Text(last_name),
+              ],
+            ),
+            accountEmail: Text(email),
+            // currentAccountPicture: const CircleAvatar(
+            //   backgroundColor: Colors.white,
+            //   child: Icon(
+            //     Icons.person,
+            //     size: 50,
+            //   ),
+            // ),
+          ),
 
           // Home
           ListTile(
@@ -66,6 +80,32 @@ class NavBar extends StatelessWidget {
             onTap: () => print('Call center'),
           ),
           // Phone center
+
+          Divider(),
+
+          // Settings
+          ListTile(
+            title: const Text('Settings'),
+            leading: const Icon(Icons.settings),
+            onTap: () => print('Settings'),
+          ),
+          // Settings
+
+          // About
+          ListTile(
+            title: const Text('About us'),
+            leading: const Icon(Icons.info),
+            onTap: () => print('About us'),
+          ),
+          // Rate
+
+          // Rate
+          ListTile(
+            title: const Text('Rate us'),
+            leading: const Icon(Icons.star),
+            onTap: () => print('Rate'),
+          ),
+          // Rate
 
           Divider(),
 

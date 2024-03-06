@@ -16,6 +16,7 @@ class _FdfmsHomeState extends State<FdfmsHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: FutureBuilder<List<dynamic>>(
         future: postsFuture,
         builder: (context, snapshot) {
@@ -25,9 +26,10 @@ class _FdfmsHomeState extends State<FdfmsHome> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  'Recent Posts:',
+                  'Recent Posts',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -38,11 +40,27 @@ class _FdfmsHomeState extends State<FdfmsHome> {
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
                       var post = snapshot.data?[index];
-                      return ListTile(
-                        title: Text(post['title']),
-                        subtitle: Text(
-                            'By ${post['author_username']} on ${post['posted_date']}'),
-                        trailing: Text(post['content']),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          clipBehavior: Clip.hardEdge,
+                          child: InkWell(
+                            splashColor: const Color.fromARGB(255, 0, 0, 0)
+                                .withAlpha(30),
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text(
+                                post['title'],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(post['content']),
+                              trailing: Text(
+                                  'By ${post['author_username']} on ${post['posted_date']}'),
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
