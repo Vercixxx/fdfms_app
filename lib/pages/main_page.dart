@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
 
       // Bottom menu
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Colors.transparent,
           color: Color.fromARGB(255, 12, 136, 95),
           animationDuration: const Duration(milliseconds: 200),
           height: 60,

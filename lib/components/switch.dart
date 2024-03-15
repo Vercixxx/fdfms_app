@@ -28,7 +28,6 @@ class _SwitchComponentState extends State<SwitchComponent> {
       onChanged: (value) {
         setState(() {
           isSwitched = value;
-          print(value);
           if (value) {
             widget.actionOn();
           } else {
@@ -39,9 +38,9 @@ class _SwitchComponentState extends State<SwitchComponent> {
       thumbColor: MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
           if (states.contains(MaterialState.selected)) {
-            return Colors.green; // Use the color you want when the switch is on
+            return Colors.green;
           }
-          return Colors.red; // Use the color you want when the switch is off
+          return Colors.red;
         },
       ),
       thumbIcon: MaterialStateProperty.resolveWith<Icon>(

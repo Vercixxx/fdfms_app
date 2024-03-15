@@ -53,7 +53,7 @@ class NavBar extends StatelessWidget {
               ),
               accountEmail: Text(email),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 child: Icon(
                   Icons.person,
                   size: 50,

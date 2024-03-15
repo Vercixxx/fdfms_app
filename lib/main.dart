@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 // Storage
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 
 // My pages
 import 'pages/login_page.dart';
-import 'theme/theme.dart';
+import 'theme/theme_provider.dart';
 
 void main() async {
   await GetStorage.init();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,8 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FDFMS',
       home: LoginPage(),
-      theme: lightMode,
-      darkTheme: darkMode,
+      theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
 }
