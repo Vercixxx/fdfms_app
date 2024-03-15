@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 // My pages
 import 'pages/login_page.dart';
+import 'theme/theme.dart';
 
 void main() async {
   await GetStorage.init();
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FDFMS',
       home: LoginPage(),
+      theme: lightMode,
+      darkTheme: darkMode,
     );
   }
 }

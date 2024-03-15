@@ -16,12 +16,12 @@ class _FdfmsHomeState extends State<FdfmsHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: FutureBuilder<List<dynamic>>(
         future: postsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
@@ -45,8 +45,7 @@ class _FdfmsHomeState extends State<FdfmsHome> {
                         child: Card(
                           clipBehavior: Clip.hardEdge,
                           child: InkWell(
-                            splashColor: const Color.fromARGB(255, 0, 0, 0)
-                                .withAlpha(30),
+                            splashColor: Color.fromARGB(134, 12, 136, 95),
                             onTap: () {},
                             child: ListTile(
                               title: Text(

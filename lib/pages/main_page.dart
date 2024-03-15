@@ -33,8 +33,8 @@ class _MainPageState extends State<MainPage> {
 
       // Bottom menu
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.grey.shade100,
-          color: Color.fromARGB(97, 3, 0, 7),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          color: Color.fromARGB(255, 12, 136, 95),
           animationDuration: const Duration(milliseconds: 200),
           height: 60,
           items: const [
@@ -60,25 +60,23 @@ class _MainPageState extends State<MainPage> {
 
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
           _page == 0 ? 'Home' : 'Delivery',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
-            color: Color.fromARGB(255, 0, 0, 0),
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
 
       body: Container(
-        color: Colors.deepPurple,
         child: Center(
           child: (_page == 0)
               ? FdfmsHome()
               : (_page == 1)
                   ? DeliveryHome()
-                  : Container(), // default case if _page is not 0 or 1
+                  : Container(),
         ),
       ),
     );
