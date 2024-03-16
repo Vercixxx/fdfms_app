@@ -31,6 +31,9 @@ class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
+  // Login button loading state
+  final isLoading = ValueNotifier<bool>(false);
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +67,13 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(MdiIcons.carPickup, color: Colors.white, size: 70),
+              Container(
+                child: Image.asset(
+                  'assets/images/fdfms.png',
+                  width: 140,
+                  height: 140,
+                ),
+              ),
 
               // Logo
               const Align(
@@ -140,6 +149,8 @@ class _LoginPageState extends State<LoginPage> {
               // Button login
               LoginButton(
                 onTap: () async {
+                  isLoading.value = true;
+
                   dynamic loginSuccessData = await login_func(
                     usernameController.text,
                     passwordController.text,
@@ -163,6 +174,8 @@ class _LoginPageState extends State<LoginPage> {
                       // Remove the username and password
                     }
 
+                    isLoading.value = false;
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MainPage()),
@@ -181,8 +194,10 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       }),
                     ).show(context);
+                    isLoading.value = false;
                   }
                 },
+                isLoading: isLoading,
               ),
               // Button login
 

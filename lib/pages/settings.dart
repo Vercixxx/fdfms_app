@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ],
           ),
-          Divider(
+          const Divider(
             color: Colors.grey,
             height: 50,
             thickness: 1,

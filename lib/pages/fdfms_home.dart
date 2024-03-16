@@ -43,6 +43,7 @@ class _FdfmsHomeState extends State<FdfmsHome> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
+                          color: Theme.of(context).colorScheme.tertiary,
                           clipBehavior: Clip.hardEdge,
                           child: InkWell(
                             splashColor: Color.fromARGB(134, 12, 136, 95),

@@ -25,6 +25,40 @@ dependencies:
   slide_to_act: ^2.0.2
   table_calendar: ^3.0.9
   provider:
+  flutter_native_splash: ^2.3.13
+  flutter_launcher_icons: "^0.13.1"
+
+
+flutter_native_splash:
+  color: "#048c7f"
+  image: "assets/images/fdfms.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "#FFFFFF"
+  android: true
+  ios: true
+  web: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  
+  image_path: "assets/images/fdfms.png"
+  min_sdk_android: 21
+
+  ios: true
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/fdfms.png"
+    background_color: "#aaaaaa"
+    theme_color: "#aaaaaa"
+  windows:
+    generate: true
+    image_path: "assets/images/fdfms.png"
+    icon_size: 48 
+  macos:
+    generate: true
+    image_path: "assets/images/fdfms.png"
+
 
 dev_dependencies:
   flutter_test:
