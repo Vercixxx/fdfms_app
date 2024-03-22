@@ -7,6 +7,7 @@ import '../components/logout_dialog.dart';
 
 // My pages
 import '../pages/login_page.dart';
+import '../pages/main_page.dart';
 import '../pages/settings.dart';
 import '../pages/scheduler.dart';
 
@@ -63,7 +64,12 @@ class NavBar extends StatelessWidget {
             ListTile(
               title: const Text('Home'),
               leading: const Icon(Icons.home),
-              onTap: () => print('Home'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                );
+              },
             ),
             // Home
 
@@ -72,7 +78,7 @@ class NavBar extends StatelessWidget {
               title: const Text('Scheduler'),
               leading: const Icon(Icons.calendar_month_rounded),
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => Scheduler()),
                 );

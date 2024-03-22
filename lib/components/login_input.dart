@@ -4,12 +4,14 @@ class LoginInput extends StatelessWidget {
   final controller;
   final String labelText;
   final bool obscureText;
+  bool showPassword;
 
-  const LoginInput({
+  LoginInput({
     super.key,
     required this.controller,
     required this.labelText,
     required this.obscureText,
+    this.showPassword = false,
   });
 
   @override

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+// NavBar
+import '../pages/menu.dart';
+
 class Scheduler extends StatefulWidget {
   @override
   _SchedulerState createState() => _SchedulerState();
@@ -17,9 +20,20 @@ class _SchedulerState extends State<Scheduler> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavBar(),
+
       appBar: AppBar(
-        title: const Text('Scheduler'),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text(
+          'Scheduler',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
+      
       body: TableCalendar(
         locale: 'en_US',
         headerStyle: const HeaderStyle(
