@@ -47,6 +47,8 @@ class _SchedulerState extends State<Scheduler> {
             showAgenda: true,
             navigationDirection: MonthNavigationDirection.horizontal,
             dayFormat: 'EEE',
+            agendaViewHeight: 350,
+            agendaItemHeight: 70,
             monthCellStyle: MonthCellStyle(
               textStyle: TextStyle(
                 fontSize: 10,

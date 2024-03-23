@@ -16,60 +16,68 @@ class _FdfmsHomeState extends State<FdfmsHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: FutureBuilder<List<dynamic>>(
-        future: postsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  'Recent Posts',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      var post = snapshot.data?[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                            splashColor: Color.fromARGB(134, 12, 136, 95),
-                            onTap: () {},
-                            child: ListTile(
-                              title: Text(
-                                post['title'],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: RefreshIndicator(
+          onRefresh: () async {
+            setState(() {
+              postsFuture = fetchPosts();
+            });
+          },
+          edgeOffset: 1,
+
+          child: FutureBuilder<List<dynamic>>(
+            future: postsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Recent Posts',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          var post = snapshot.data?[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              clipBehavior: Clip.hardEdge,
+                              child: InkWell(
+                                splashColor: Color.fromARGB(134, 12, 136, 95),
+                                onTap: () {},
+                                child: ListTile(
+                                  title: Text(
+                                    post['title'],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  subtitle: Text(post['content']),
+                                  trailing: Text(
+                                      'By ${post['author_username']} on ${post['posted_date']}'),
                                 ),
                               ),
-                              subtitle: Text(post['content']),
-                              trailing: Text(
-                                  'By ${post['author_username']} on ${post['posted_date']}'),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
-          }
-        },
-      ),
-    );
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+            },
+          ),
+        ));
   }
 }

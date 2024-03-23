@@ -10,7 +10,8 @@ Future<List<dynamic>> fetchPosts() async {
 
   try {
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/app/posts/get/drivers/'),
+      // Uri.parse('http://127.0.0.1:8000/api/app/posts/get/drivers/'),
+      Uri.parse('http://10.0.2.2:8000/api/app/posts/get/drivers/'),
       // Uri.parse(
       //     'https://d9q9c61l-8000.euw.devtunnels.ms/api/app/posts/get/drivers/'),
       headers: {
