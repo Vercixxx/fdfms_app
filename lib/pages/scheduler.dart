@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+// Scheduler
+import 'package:syncfusion_flutter_calendar/calendar.dart';
+import '../scripts/get_shifts.dart';
+
 // NavBar
 import '../pages/menu.dart';
 
@@ -10,18 +14,21 @@ class Scheduler extends StatefulWidget {
 }
 
 class _SchedulerState extends State<Scheduler> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  List<DateTime>? _displayedDates;
+  List<Map<String, dynamic>> _driverSchedules = [];
 
-  final DateTime kFirstDay = DateTime(DateTime.now().year - 1);
-  final DateTime kLastDay = DateTime(DateTime.now().year + 1);
+  late MeetingDataSource _events;
+
+  @override
+  void initState() {
+    super.initState();
+    _events = MeetingDataSource(_driverSchedules);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
-
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -33,48 +40,48 @@ class _SchedulerState extends State<Scheduler> {
           ),
         ),
       ),
-      
-      body: TableCalendar(
-        locale: 'en_US',
-        headerStyle: const HeaderStyle(
-          formatButtonVisible: false,
-          titleCentered: true,
-        ),
-        firstDay: kFirstDay,
-        lastDay: kLastDay,
-        focusedDay: _focusedDay,
-        calendarFormat: _calendarFormat,
-        selectedDayPredicate: (day) {
-          // Use `selectedDayPredicate` to determine which day is currently selected.
-          // If this returns true, then `day` will be marked as selected.
+      body: Container(
+        child: SfCalendar(
+          view: CalendarView.month,
+          monthViewSettings: const MonthViewSettings(
+            showAgenda: true,
+            navigationDirection: MonthNavigationDirection.horizontal,
+            dayFormat: 'EEE',
+            monthCellStyle: MonthCellStyle(
+              textStyle: TextStyle(
+                fontSize: 10,
+              ),
+            ),
+          ),
+          onViewChanged: (ViewChangedDetails details) {
+            List<DateTime> _dates = details.visibleDates;
+            _displayedDates = [_dates.first, _dates.last];
 
-          // Using `isSameDay` is recommended to disregard
-          // the time-part of compared DateTime objects.
-          return isSameDay(_selectedDay, day);
-        },
-        onDaySelected: (selectedDay, focusedDay) {
-          print('Selected: $selectedDay');
-          if (!isSameDay(_selectedDay, selectedDay)) {
-            // Call `setState()` when updating the selected day
-            setState(() {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
+            fetchDriverShifts(_displayedDates!).then((value) {
+              setState(() {
+                _driverSchedules = value.cast<Map<String, dynamic>>();
+                _events = MeetingDataSource(_driverSchedules);
+              });
             });
-          }
-        },
-        onFormatChanged: (format) {
-          if (_calendarFormat != format) {
-            // Call `setState()` when updating calendar format
-            setState(() {
-              _calendarFormat = format;
-            });
-          }
-        },
-        onPageChanged: (focusedDay) {
-          // No need to call `setState()` here
-          _focusedDay = focusedDay;
-        },
+          },
+          dataSource: _events,
+        ),
       ),
     );
+  }
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Map<String, dynamic>> source) {
+    appointments = source.map((item) {
+      final DateTime start = DateTime.parse(item['time']['start']);
+      final DateTime end = DateTime.parse(item['time']['end']);
+      return Appointment(
+        startTime: start,
+        endTime: end,
+        subject: item['restaurant_name'],
+        color: Colors.teal.shade800, // replace with actual color mapping
+      );
+    }).toList();
   }
 }

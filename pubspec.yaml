@@ -27,6 +27,8 @@ dependencies:
   provider:
   flutter_native_splash: ^2.3.13
   flutter_launcher_icons: "^0.13.1"
+  syncfusion_flutter_calendar: ^25.1.35
+  
 
 
 flutter_native_splash:
