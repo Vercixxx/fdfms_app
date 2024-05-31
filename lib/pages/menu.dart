@@ -10,6 +10,8 @@ import '../pages/login_page.dart';
 import '../pages/main_page.dart';
 import '../pages/settings.dart';
 import '../pages/scheduler.dart';
+import '../pages/call_center.dart';
+import 'about_us.dart';
 
 class NavBar extends StatelessWidget {
   NavBar({Key? key}) : super(key: key);
@@ -90,7 +92,12 @@ class NavBar extends StatelessWidget {
             ListTile(
               title: const Text('Call center'),
               leading: const Icon(Icons.phone),
-              onTap: () => print('Call center'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CallCenterPage()),
+                );
+              },
             ),
             // Phone center
 
@@ -113,15 +120,12 @@ class NavBar extends StatelessWidget {
             ListTile(
               title: const Text('About us'),
               leading: const Icon(Icons.info),
-              onTap: () => print('About us'),
-            ),
-            // Rate
-
-            // Rate
-            ListTile(
-              title: const Text('Rate us'),
-              leading: const Icon(Icons.star),
-              onTap: () => print('Rate'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutUsPage()),
+                );
+              },
             ),
             // Rate
 

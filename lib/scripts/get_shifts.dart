@@ -16,7 +16,7 @@ Future<dynamic> fetchDriverShifts(List<DateTime> dates) async {
     final driverUsername = userData!['username'];
 
     final response = await http.get(
-      Uri.http('127.0.0.1:8000', 'api/restaurant/driver-shifts/', {
+      Uri.http('172.105.74.117:8000', 'api/restaurant/driver-shifts/', {
         'restaurant': 'all',
         'date[start]': startDate,
         'date[end]': endDate,

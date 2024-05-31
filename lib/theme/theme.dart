@@ -7,6 +7,7 @@ ThemeData lightMode = ThemeData(
     primary: Color.fromARGB(255, 12, 136, 95),
     secondary: Color.fromARGB(255, 255, 229, 180),
     tertiary: Colors.grey.shade300,
+    
   ),
 );
 

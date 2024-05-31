@@ -44,6 +44,7 @@ class _SchedulerState extends State<Scheduler> {
         child: SfCalendar(
           view: CalendarView.month,
           monthViewSettings: const MonthViewSettings(
+            
             showAgenda: true,
             navigationDirection: MonthNavigationDirection.horizontal,
             dayFormat: 'EEE',
@@ -82,7 +83,7 @@ class MeetingDataSource extends CalendarDataSource {
         startTime: start,
         endTime: end,
         subject: item['restaurant_name'],
-        color: Colors.teal.shade800, // replace with actual color mapping
+        color: Colors.teal.shade800, 
       );
     }).toList();
   }

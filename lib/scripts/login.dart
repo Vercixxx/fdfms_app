@@ -10,9 +10,7 @@ Future<dynamic> login_func(String username, String password) async {
 
   try {
     final response = await http.post(
-      // Uri.parse('http://127.0.0.1:8000/api/v1/login/'),
-      Uri.parse('http://10.0.2.2:8000/api/v1/login/'),
-      // Uri.parse('https://d9q9c61l-8000.euw.devtunnels.ms/api/v1/login/'),
+      Uri.parse('http://172.105.74.117:8000/api/v1/login/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
